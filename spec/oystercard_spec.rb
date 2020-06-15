@@ -46,6 +46,10 @@ describe Oystercard do
     end
   end
 
+  it 'will not touch in if below minimum balance' do
+    expect{ subject.touch_in }.to raise_error "Insufficient balance to touch in"
+  end
+
   it 'raises an error if the maximum balance is exceeded' do
     maximum_balance = Oystercard::MAXIMUM_BALANCE
     subject.top_up(maximum_balance)
