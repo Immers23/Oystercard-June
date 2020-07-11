@@ -18,7 +18,7 @@ class Oystercard
   end
 
   def touch_in(station)
-    raise "Insufficient balance to touch in" if balance < MINIMUM_BALANCE
+    raise "Insufficient balance to touch in" if min_amount?
     @entry_station = station
     @in_journey = true
   end
@@ -35,6 +35,9 @@ class Oystercard
 
   private
 
+  def min_amount?
+    @balance < MINIMUM_BALANCE
+  end
 
   def exceeds_max?(amount)
     @balance + amount > MAXIMUM_BALANCE
