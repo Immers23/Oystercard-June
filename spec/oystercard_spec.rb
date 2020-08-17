@@ -5,8 +5,6 @@ describe Oystercard do
   let(:entry_station){ double :station }
   let(:exit_station) { double :station }
 
-
-
   it 'has a balance of 0' do
     expect(subject.balance).to eq (0)
   end
@@ -57,6 +55,26 @@ describe Oystercard do
       expect(subject.exit_station).to eq exit_station
     end
 
+    it "journey_history empty @default" do
+      expect(subject.journeys).to be_empty
+    end
+
+    it "one_journey empty @default" do
+      expect(subject.one_journey).to be nil
+    end
+
+    it "stores the journey history" do
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).not_to be_empty
+    end
+
+    it "touch_in and touch_out creates one journey" do
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include(subject.one_journey)
+    end
+
   end
 
   it 'will not touch in if below minimum balance' do
@@ -69,6 +87,9 @@ describe Oystercard do
     expect{ subject.top_up 1 }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
   end
 
+  it 'has an empty list of journeys by default' do
+    expect(subject.journeys).to be_empty
+  end
 
 
 end
