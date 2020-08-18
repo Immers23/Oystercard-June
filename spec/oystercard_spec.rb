@@ -24,8 +24,16 @@ describe Oystercard do
 
   describe 'touch in and touch out' do
 
+    let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
+
     before(:each) do
       subject.top_up(Oystercard::MAXIMUM_BALANCE)
+    end
+
+    it 'stores a journey' do
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include journey
     end
 
     it "can touch in" do
