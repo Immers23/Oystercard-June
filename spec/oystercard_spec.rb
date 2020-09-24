@@ -54,13 +54,13 @@ describe Oystercard do
 
     it 'stores the entry station' do
       subject.touch_in(entry_station)
-      expect(subject.entry_station).to eq entry_station
+      expect(subject.one_journey).to include(:entry_station => entry_station)
     end
 
-    it 'stores exit station' do
+    it 'stores forgets entry station on touch out' do
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.exit_station).to eq exit_station
+      expect(subject.one_journey).to be_empty
     end
 
     it "journey_history empty @default" do
@@ -68,7 +68,7 @@ describe Oystercard do
     end
 
     it "one_journey empty @default" do
-      expect(subject.one_journey).to be nil
+      expect(subject.one_journey).to be_empty
     end
 
     it "stores the journey history" do
@@ -80,7 +80,7 @@ describe Oystercard do
     it "touch_in and touch_out creates one journey" do
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.journeys).to include(subject.one_journey)
+      expect(subject.journeys).to include journey
     end
 
   end
