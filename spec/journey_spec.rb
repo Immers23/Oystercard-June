@@ -24,8 +24,20 @@ describe Journey do
     expect(subject.fare).to eq Oystercard::MINIMUM_CHARGE
   end
 
-  it 'should return 6 for incomplete journey' do
+  it 'should return 6 for no exit station' do
     subject.set_entry(station)
     expect(subject.fare).to eq Oystercard::PENALTY_FARE
   end
+
+  it 'should return 6 for no entry station' do
+    subject.set_exit(station)
+    expect(subject.fare).to eq Oystercard::PENALTY_FARE
+  end
+
+  it 'should return 6 for no entry or exit station' do
+    # subject.set_entry(station)
+    expect(subject.fare).to eq Oystercard::PENALTY_FARE
+  end
+
+
 end
