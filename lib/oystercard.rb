@@ -1,5 +1,6 @@
 require_relative 'station'
 require_relative 'journey'
+require_relative 'journey_log'
 
 class Oystercard
 
@@ -10,9 +11,10 @@ class Oystercard
   MINIMUM_BALANCE = 1
   PENALTY_FARE = 6
 
-  def initialize(journey = Journey.new)
+  def initialize
     @balance = 0
     @journey = journey
+    @journey_log = JourneyLog.new
   end
 
   def top_up(amount)

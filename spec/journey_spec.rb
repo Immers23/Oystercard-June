@@ -35,9 +35,7 @@ describe Journey do
   end
 
   it 'should return 6 for no entry or exit station' do
-    # subject.set_entry(station)
     expect(subject.fare).to eq Oystercard::PENALTY_FARE
   end
-
 
 end
