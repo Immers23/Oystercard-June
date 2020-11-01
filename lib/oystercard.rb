@@ -13,7 +13,7 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @journey = journey
+    @journey = journey # get rid of journey dependancy in next task (require_journey and all mentions of (journey.))
     @journey_log = JourneyLog.new
   end
 
@@ -28,8 +28,8 @@ class Oystercard
   end
 
   def touch_out(station)
-    deduct(journey.fare)
     journey.set_exit(station)
+    deduct(journey.fare)
     journey.reset_journey
   end
 
