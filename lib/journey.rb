@@ -1,6 +1,6 @@
 class Journey
 
-  attr_reader :journey, :journey_history
+  attr_accessor :journey, :journey_history
 
   def initialize
     @journey = {}

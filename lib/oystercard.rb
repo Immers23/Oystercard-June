@@ -1,10 +1,10 @@
-require_relative 'station'
-require_relative 'journey'
 require_relative 'journey_log'
+# require_relative 'journey'
+# require_relative 'station'
 
 class Oystercard
 
-  attr_reader :balance, :journey
+  attr_accessor :balance, :journey_log
 
   MAXIMUM_BALANCE = 90
   MINIMUM_CHARGE = 1
@@ -13,7 +13,6 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @journey = journey # get rid of journey dependancy in next task (require_journey and all mentions of (journey.))
     @journey_log = JourneyLog.new
   end
 
@@ -24,7 +23,7 @@ class Oystercard
 
   def touch_in(station)
     raise "Insufficient balance to touch in" if min_amount?
-    journey.set_entry(station)
+    journey_log.start(station)
   end
 
   def touch_out(station)
